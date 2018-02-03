@@ -1,0 +1,7 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Project specific
+src/api.py
