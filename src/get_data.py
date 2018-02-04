@@ -20,6 +20,7 @@ def print_coins(coins):
 
 def pause_program():
 	while True:
+		pass
 
 def check_spikes(coins, clients, pump_running):
 	

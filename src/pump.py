@@ -109,7 +109,6 @@ def buy_pumped_coin(symb, pump_data, client, user):
 	
 	try:
 		client.order_market_buy(symbol=symb, quantity=amount_to_buy)
-		pass
 	except Exception as e:
 		print ('Problem encountered buying {} with the {} account. Error is {}'.format(symb, user, e))
 
@@ -143,9 +142,11 @@ def sell_limit_procedure(client, symb, amounts_to_buy, prices_to_sell, total_amo
 
 	raw_input('> Press enter to cancell orders and market sell')
 
+	all_t = []
 	for order in range(num_of_orders-1, -1, -1):
 		t = threading.Thread(target=cancel_limit, args=(client, symb, ids[order], order,))
 		t.start()
+		all_t.append(t)
 
 	for thr in all_t:
 		thr.join()
@@ -155,7 +156,7 @@ def sell_limit_procedure(client, symb, amounts_to_buy, prices_to_sell, total_amo
 	for order in range(num_of_orders):
 		if sell_limits_achieved[order]:
 			amount_left_to_sell -= amounts_to_buy[order]
-
+	print amount_left_to_sell, total_amount
 	try:
 		client.order_market_sell(symbol=symb, quantity=amount_left_to_sell)
 	except:

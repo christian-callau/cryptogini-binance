@@ -5,12 +5,11 @@ make_order = True	#For test purpouses, set it as False and any order will be pla
 perc_to_pump = 0.9 #% of the total balance to invest, it has to be less than 1 due to the price variations of the coins.
 pump_time_margin = 5 #-Seconds before the next_pump to start the pump procedure
 
-pump_percentage = 0.005	#The coin which increases this percentage will be bought during the pump procedure
-pump_change_sell = 1.1	#Sell percentage
+pump_percentage = 0.03	#The coin which increases this percentage will be bought during the pump procedure
 pump_change_abort = 0.06 #Abort the pump if the coin has already exceded this percentage
 
 sell_amounts = [0.4, 0.3, 0.3] # Divide the sell limits with the % assigned, make sure the sum of all equals to 1
-price_amounts = [1.12, 1.5, 1.7] # % of sell limits, make sure there are the same price amounts as sell amounts
+price_amounts = [1.12, 1.15, 0.18] # % of sell limits, make sure there are the same price amounts as sell amounts
 
 min_motional = 0.003 #0.002 is the min BTC to trade, use a greater amount for being sure it wont pop an error
 
