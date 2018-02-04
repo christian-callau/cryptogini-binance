@@ -118,11 +118,15 @@ def buy_pumped_coin(symb, pump_data, client, user):
 	except Exception as e:
 		print ('Problem encountered placing sell limit with the {} account. Error is {}'.format(user, e))
 
-def cancel_limit(client, symb, id_num):
+
+sell_limits_achieved = [0]*len(config.sell_amounts)
+
+def cancel_limit(client, symb, id_num, position):
+	global sell_limits_achieved
 	try:
 		client.cancel_order(symbol=symb, orderId=id_num)
 	except:
-		print ("sell Limit was already canceled")
+		sell_limits_achieved[position] = 1
 
 def sell_limit_procedure(client, symb, amounts_to_buy, prices_to_sell, total_amount):
 	num_of_orders = len(config.sell_amounts)
@@ -138,21 +142,25 @@ def sell_limit_procedure(client, symb, amounts_to_buy, prices_to_sell, total_amo
 		client.order_market_sell(symbol=symb, quantity=total_amount)
 
 	raw_input('> Press enter to cancell orders and market sell')
-	all_t = []
 
-	for order in range(num_of_orders):
-		t = threading.Thread(target=cancel_limit, args=(client, symb, ids[order]))
+	for order in range(num_of_orders-1, -1, -1):
+		t = threading.Thread(target=cancel_limit, args=(client, symb, ids[order], order,))
 		t.start()
-		all_t.append(t)
 
 	for thr in all_t:
 		thr.join()
 
+	amount_left_to_sell = total_amount
+
+	for order in range(num_of_orders):
+		if sell_limits_achieved[order]:
+			amount_left_to_sell -= amounts_to_buy[order]
+
 	try:
-		client.order_market_sell(symbol=symb, quantity=total_amount)
+		client.order_market_sell(symbol=symb, quantity=amount_left_to_sell)
 	except:
-		time.sleep(0.3)
-		client.order_market_sell(symbol=symb, quantity=total_amount)
+		print("COULD NOT MARKET SELL, DO IT MANUALLY!!")
+		
 
 def is_pump_near(next_pump, min_margin, sec_margin):
 	
