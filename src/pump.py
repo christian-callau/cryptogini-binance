@@ -110,12 +110,12 @@ def buy_pumped_coin(symb, pump_data, client, user):
 	try:
 		client.order_market_buy(symbol=symb, quantity=amount_to_buy)
 	except Exception as e:
-		print ('Problem encountered buying {} with the {} account. Error is {}'.format(symb, user, e))
+		print('Problem encountered buying {} with the {} account. Error is {}'.format(symb, user, e))
 
 	try:
 		sell_limit_procedure(client, symb, pump_data.amounts_to_buy, pump_data.prices_to_sell, amount_to_buy)
 	except Exception as e:
-		print ('Problem encountered placing sell limit with the {} account. Error is {}'.format(user, e))
+		print('Problem encountered placing sell limit with the {} account. Error is {}'.format(user, e))
 
 
 sell_limits_achieved = [0]*len(config.sell_amounts)
@@ -136,7 +136,7 @@ def sell_limit_procedure(client, symb, amounts_to_buy, prices_to_sell, total_amo
 			id_num = client.order_limit_sell(symbol=symb, quantity=amounts_to_buy[order], price=prices_to_sell[order])['orderId']
 			ids.append(id_num)
 	except Exception as e:
-		print (e)
+		print(e)
 		raw_input('> Could not place sell limit, press enter to market sell"')
 		client.order_market_sell(symbol=symb, quantity=total_amount)
 
@@ -156,7 +156,7 @@ def sell_limit_procedure(client, symb, amounts_to_buy, prices_to_sell, total_amo
 	for order in range(num_of_orders):
 		if sell_limits_achieved[order]:
 			amount_left_to_sell -= amounts_to_buy[order]
-	print amount_left_to_sell, total_amount
+
 	try:
 		client.order_market_sell(symbol=symb, quantity=amount_left_to_sell)
 	except:

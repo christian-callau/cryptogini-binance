@@ -9,7 +9,7 @@ pump_percentage = 0.03	#The coin which increases this percentage will be bought 
 pump_change_abort = 0.06 #Abort the pump if the coin has already exceded this percentage
 
 sell_amounts = [0.4, 0.3, 0.3] # Divide the sell limits with the % assigned, make sure the sum of all equals to 1
-price_amounts = [1.12, 1.15, 0.18] # % of sell limits, make sure there are the same price amounts as sell amounts
+price_amounts = [1.12, 1.15, 1.18] # % of sell limits, make sure there are the same price amounts as sell amounts
 
 min_motional = 0.003 #0.002 is the min BTC to trade, use a greater amount for being sure it wont pop an error
 

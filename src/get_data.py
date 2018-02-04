@@ -41,11 +41,11 @@ def check_spikes(coins, clients, pump_running):
 			if pump_running == False and str(spike_alarm) not in coin['previous_spikes'].keys():
 				if spike_alarm < 0:
 					if spike < spike_alarm:
-						print (str(key), " Has fallen a", ("{:.3f}%!").format(spike*-100))
+						print(str(key), " Has fallen a", ("{:.3f}%!").format(spike*-100))
 						coin['previous_spikes'][str(spike_alarm)] = datetime.now()
 				if spike_alarm > 0:
 					if spike > spike_alarm:
-						print (str(key), " Has increased a", ("{:.3f}%!").format(spike*100))
+						print(str(key), " Has increased a", ("{:.3f}%!").format(spike*100))
 						coin['previous_spikes'][str(spike_alarm)] = datetime.now()
 
 def get_clients():
